@@ -26,7 +26,6 @@ def maze_path_finder(maze):
 
     return False, -1  # If no path is found, return failure
 
-# Example Maze Input
 maze = [
     [0, 1, 0, 0, 0],
     [0, 1, 0, 1, 0],
@@ -35,7 +34,6 @@ maze = [
     [0, 0, 0, 1, 0]
 ]
 
-# Run the Function
 path_exists, shortest_length = maze_path_finder(maze)
 print("Is there a valid path?", path_exists)
 print("Length of the shortest path:", shortest_length)
