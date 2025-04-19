@@ -17,7 +17,6 @@ def visualize_avg_video_length(df):
         plt.bar(bar_positions, top_video_lengths.values, color='royalblue', edgecolor='black', width=0.6)
         plt.xticks(bar_positions, top_video_lengths.index, fontsize=12, rotation=45)
         plt.grid(axis='y', linestyle='--', alpha=0.6)
-        # Labels and title formatting
         plt.title("Top 5 Most Common Avg Video Lengths by Video Count", fontsize=14, fontweight='bold')
         plt.xlabel("Avg Video Length (min)", fontsize=12)
         plt.ylabel("Total Number of Videos", fontsize=12)
@@ -42,30 +41,22 @@ def visualize_channel_video_count(df):
 
 def visualize_total_subscribers(df):
     if 'Channel_Name' in df.columns and 'Total_Subscribers' in df.columns:
-        top_subscribers = df.sort_values("Total_Subscribers", ascending=False).head(5)
+        unique_channels = df.groupby("Channel_Name")["Total_Subscribers"].max().reset_index()
+        top_subscribers = unique_channels.sort_values("Total_Subscribers", ascending=False).head(10)
         plt.figure(figsize=(10, 6))
         plt.bar(top_subscribers["Channel_Name"], top_subscribers["Total_Subscribers"], 
-                color='purple', edgecolor='black', width=0.7)
+                color='#6A0DAD', edgecolor='black', width=0.6)
         plt.title("Top 5 Channels by Subscriber Count", fontsize=14, fontweight='bold')
         plt.xlabel("Channel Name", fontsize=12)
         plt.ylabel("Total Subscribers", fontsize=12)
-        plt.xticks(rotation=45)
+        plt.xticks(rotation=25, ha="right", fontsize=10)
         plt.gca().yaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"{int(x):,}"))
+        plt.grid(axis="y", linestyle="--", alpha=0.6)
         plt.tight_layout()
         plt.show()
     else:
         print("Required columns for 'Total Subscribers' visualization are missing.")
 
-def visualize_metaverse_level(df):
-    if 'Metaverse_Level' in df.columns:
-        metaverse_counts = df['Metaverse_Level'].value_counts()
-        plt.figure(figsize=(8, 8))
-        plt.pie(metaverse_counts, labels=metaverse_counts.index, autopct='%1.1f%%', startangle=90, colors=['red', 'skyblue', 'orange', 'purple'])
-        plt.title("Metaverse Level Distribution")
-        plt.tight_layout()
-        plt.show()
-    else:
-        print("Column 'Metaverse_Level' does not exist in the dataset.")
 
 def visualize_holographic_content_rating(df):
     if 'Holographic_Content_Rating' in df.columns:
@@ -94,10 +85,10 @@ def visualize_neural_interface_compatibility(df):
 
 def main():
     print("Starting Visualization Analysis...")
+
     visualize_avg_video_length(df)
     visualize_channel_video_count(df)
     visualize_total_subscribers(df)
-    visualize_metaverse_level(df)
     visualize_holographic_content_rating(df)
     visualize_neural_interface_compatibility(df)
 

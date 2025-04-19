@@ -16,19 +16,22 @@ SELECT SUM(Total_Video_Count) AS Total_Videos FROM youtube_dataset;
 cursor.execute(query_total_videos)
 result = cursor.fetchall()
 print(f"Total Videos Across All Channels: {result[0][0]}")
+print("-----------------------------------------------------------------------")
 
-#Top performing channels by subscribers
+#Top 10 Channels by Subscriber Count
 query_top_channels = """
-SELECT Channel_Name, Total_Subscribers 
-FROM youtube_dataset 
-ORDER BY Total_Subscribers DESC 
+SELECT Channel_Name, MAX(Total_Subscribers) AS Total_Subscribers
+FROM youtube_dataset
+GROUP BY Channel_Name
+ORDER BY Total_Subscribers DESC
 LIMIT 10;
 """
 cursor.execute(query_top_channels)
 top_channels = cursor.fetchall()
 df_top_channels = pd.DataFrame(top_channels, columns=['Channel Name', 'Total Subscribers'])
-print("\nTop Channels by Subscriber Count:")
+print("\nTop 10 Channels by Subscriber Count:")
 print(df_top_channels)
+print("-----------------------------------------------------------------------")
 
 #Average video length
 query_avg_video_length = """
@@ -38,6 +41,7 @@ FROM youtube_dataset;
 cursor.execute(query_avg_video_length)
 avg_video_length = cursor.fetchall()
 print(f"\nAverage Video Length: {avg_video_length[0][0]:.2f} minutes")
+print("-----------------------------------------------------------------------")
 
 #AI Content Percentage Distribution
 query_ai_content_distribution = """
@@ -52,6 +56,7 @@ print("\nAI Content Percentage Distribution:")
 print(f"Minimum: {ai_content_distribution[0][0]:.2f}%")
 print(f"Maximum: {ai_content_distribution[0][1]:.2f}%")
 print(f"Average: {ai_content_distribution[0][2]:.2f}%")
+print("-----------------------------------------------------------------------")
 
 #Impact of Metaverse Level on Engagement Score
 query_metaverse_impact = """
@@ -64,6 +69,7 @@ metaverse_impact = cursor.fetchall()
 df_metaverse_impact = pd.DataFrame(metaverse_impact, columns=['Metaverse Level', 'Average Engagement Score'])
 print("\nImpact of Metaverse Level on Engagement Scores:")
 print(df_metaverse_impact)
+print("-----------------------------------------------------------------------")
 
 #Quantum Computing Topics
 query_quantum_topics = """
@@ -77,6 +83,7 @@ quantum_topics = cursor.fetchall()
 df_quantum_topics = pd.DataFrame(quantum_topics, columns=['Quantum Computing Topic', 'Topic Count'])
 print("\nChannels Discussing Quantum Computing Topics:")
 print(df_quantum_topics)
+print("-----------------------------------------------------------------------")
 
 #Holographic Content Rating Distribution
 query_holographic_distribution = """

@@ -4,7 +4,7 @@ def load_dataset():
     try:
         df = pd.read_csv("youtube_2025_dataset.csv")
         print("Dataset loaded successfully!")
-        print(f"Initial dataset shape: {df.shape}")  # Display the number of rows and columns
+        print(f"Initial dataset shape: {df.shape}")
         print(df.info())
         return df
     except Exception as e:
@@ -16,7 +16,6 @@ def remove_duplicates(df):
     df = df.drop_duplicates()
     print(f"Duplicates removed. Rows before: {initial_rows}, Rows after: {df.shape[0]}")
     return df
-
 
 def handle_missing_values(df):
     print("Missing values per column before handling:")

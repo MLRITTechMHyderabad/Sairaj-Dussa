@@ -54,5 +54,5 @@ except Exception as e:
     print(f"Error while inserting data: {e}")
 
 print("\n Sample dataset preview:")
-print(df.head())
+print(df.tail())
 print(f"Total rows inserted: {len(df)}")
